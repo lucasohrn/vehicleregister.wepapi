@@ -40,8 +40,8 @@ namespace vehicleregister.wepapi.Controllers
         }
 
         [HttpGet]
-        [Route("api/getvehicle")]
-        public IHttpActionResult GetVehicle()
+        [Route("api/getvehicles")]
+        public IHttpActionResult GetVehicles()
         {
             var response = new GetAllVehiclesResponseDTO();
             foreach (var vehicle in _vehicleRepository.GetAllVehicles())
@@ -62,5 +62,12 @@ namespace vehicleregister.wepapi.Controllers
             return Ok(response);
         }
 
+        [HttpGet]
+        [Route("api/getvehicle")]
+        public IHttpActionResult GetVehicle(string plateNo)
+        {
+            _vehicleRepository.GetByPlate(plateNo);
+            return Ok();
+        }
     }
 }

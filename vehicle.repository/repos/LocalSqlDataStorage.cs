@@ -62,6 +62,22 @@ namespace vehicle.repository.repos
 
         public IVehicle GetByPlate(string plateNo)
         {
+            foreach (var entity in datacontext.VehicleRegisters.ToList())
+            {
+                IVehicle vehicle = VehicleFactory.CreateVehicle(
+                    entity.PlateNo,
+                    entity.Model,
+                    entity.Brand,
+                    entity.VehicleType,
+                    ((float)entity.ServiceWeight),
+                    entity.DateInTrafficFirstTime,
+                    entity.ServiceIsBooked,
+                    ((float)entity.YearlyFee));
+
+                if (entity.PlateNo == plateNo)
+                    return vehicle;
+            }
+
             throw new NotImplementedException();
         }
 
