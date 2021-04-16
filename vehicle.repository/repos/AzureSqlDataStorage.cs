@@ -87,8 +87,8 @@ namespace vehicle.repository.repos
                     entity.Brand,
                     entity.VehicleType,
                     ((float)entity.ServiceWeight),
-                    entity.DateInTrafficFirstTime,
-                    entity.ServiceIsBooked,
+                    ((DateTime)entity.DateInTrafficFirstTime),
+                    ((int)entity.ServiceIsBooked),
                     ((float)entity.YearlyFee));
 
                 vehicles.Add(vehicle);
@@ -106,8 +106,8 @@ namespace vehicle.repository.repos
                     entity.Brand,
                     entity.VehicleType,
                     ((float)entity.ServiceWeight),
-                    entity.DateInTrafficFirstTime,
-                    entity.ServiceIsBooked,
+                    ((DateTime)entity.DateInTrafficFirstTime),
+                    ((int)entity.ServiceIsBooked),
                     ((float)entity.YearlyFee));
 
                 if (entity.PlateNo == plateNo.ToUpper())

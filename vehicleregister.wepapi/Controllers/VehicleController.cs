@@ -9,6 +9,7 @@ using vehicle.domain.Vehicle;
 using vehicle.dto;
 using vehicle.dto.MaintenanceDTO;
 using vehicle.repository;
+using vehicle.repository.interfaces;
 using vehicle.repository.repos;
 
 namespace vehicleregister.wepapi.Controllers

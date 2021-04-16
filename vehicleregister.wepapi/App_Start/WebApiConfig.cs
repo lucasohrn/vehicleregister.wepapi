@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web.Http;
 using vehicle.repository;
+using vehicle.repository.interfaces;
 using vehicle.repository.repos;
 
 namespace vehicleregister.wepapi
@@ -33,8 +34,8 @@ namespace vehicleregister.wepapi
             container.Options.DefaultScopedLifestyle = new AsyncScopedLifestyle();
             // Register your types, for instance using the scoped lifestyle:
             //container.Register<IVehicleRepository, LocalSqlDataStorage>(Lifestyle.Scoped);
-            container.Register<IMaintenanceRepository, LocalSqlDataStorage>(Lifestyle.Scoped);
-            container.Register<IVehicleRepository, LocalSqlDataStorage>(Lifestyle.Scoped);
+            container.Register<IMaintenanceRepository, AzureSqlDataStorage>(Lifestyle.Scoped);
+            container.Register<IVehicleRepository, AzureSqlDataStorage>(Lifestyle.Scoped);
             // This is an extension method from the integration package.
             container.RegisterWebApiControllers(GlobalConfiguration.Configuration);
 
