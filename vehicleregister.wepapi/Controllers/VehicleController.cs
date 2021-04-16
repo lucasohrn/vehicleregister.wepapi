@@ -7,17 +7,58 @@ using System.Web.Http;
 using vehicle.domain.Interfaces;
 using vehicle.domain.Vehicle;
 using vehicle.dto;
+using vehicle.dto.MaintenanceDTO;
 using vehicle.repository;
+using vehicle.repository.repos;
 
 namespace vehicleregister.wepapi.Controllers
 {
     public class VehicleController : ApiController
     {
         private readonly IVehicleRepository _vehicleRepository;
+        private readonly IMaintenanceRepository _maintenanceRepository;
 
-        public VehicleController(IVehicleRepository vehicleRepository)
+        public VehicleController(IVehicleRepository vehicleRepository, IMaintenanceRepository maintenanceRepository)
         {
             this._vehicleRepository = vehicleRepository;
+            this._maintenanceRepository = maintenanceRepository;
+        }
+
+        [HttpPost]
+        [Route("api/maintenance")]
+        public IHttpActionResult CreateMaintenance(CreateMaintenanceRequestDTO request)
+        {
+            IMaintenance maintenance = MaintenanceFactory.CreateMaintenance(
+                request.Description,
+                request.Cost,
+                request.VehicleID,
+                request.IsCompleted,
+                request.DateTimeOfService);
+
+
+            this._maintenanceRepository.Create(maintenance);
+            return Ok();
+        }
+
+        [HttpGet]
+        [Route("api/getmaintenances")]
+        public IHttpActionResult GetMaintenances()
+        {
+            var response = new GetAllMaintenancesResponseDTO();
+            foreach (var maintenance in _maintenanceRepository.GetAllMaintenances())
+            {
+                response.Maintenances.Add(new MaintananceDTO()
+                {
+                    MaintenanceID = maintenance.MaintenanceID,
+                    Description = maintenance.Description,
+                    Cost = maintenance.Cost,
+                    VehicleID = maintenance.VehicleID,
+                    IsCompleted = maintenance.IsCompleted,
+                    DateTimeOfService = maintenance.DateTimeOfService
+                });
+            }
+
+            return Ok(response);
         }
 
         [HttpPost]
@@ -25,8 +66,8 @@ namespace vehicleregister.wepapi.Controllers
         public IHttpActionResult CreateVehicle(CreateVehicleRequestDTO request)
         {
             IVehicle vehicle = VehicleFactory.CreateVehicle(
-                request.PlateNo, 
-                request.Model, 
+                request.PlateNo,
+                request.Model,
                 request.Brand,
                 request.VehicleType,
                 request.ServiceWeight,
@@ -66,8 +107,16 @@ namespace vehicleregister.wepapi.Controllers
         [Route("api/getvehicle")]
         public IHttpActionResult GetVehicle(string plateNo)
         {
-            _vehicleRepository.GetByPlate(plateNo);
-            return Ok();
+            var selectedVehicle = _vehicleRepository.GetByPlate(plateNo);
+            return Ok(selectedVehicle);
+        }
+
+        [HttpGet]
+        [Route("api/getmaintenance")]
+        public IHttpActionResult GetMaintenance(int maintenanceId)
+        {
+            var selectedMaintenance = _maintenanceRepository.GetMaintenance(maintenanceId);
+            return Ok(selectedMaintenance);
         }
     }
 }

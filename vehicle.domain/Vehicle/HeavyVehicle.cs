@@ -54,7 +54,7 @@ namespace vehicle.domain.Vehicle
             this.serviceWeight = serviceWeight;
             this.dateInTrafficFirstTime = dateInTrafficFirstTime;
             this.serviceIsBooked = serviceIsBooked;
-            this.yearlyFee = yearlyFee;
+            this.yearlyFee = 30000;
         }
     }
 }

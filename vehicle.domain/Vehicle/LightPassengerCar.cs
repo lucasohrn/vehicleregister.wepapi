@@ -9,7 +9,7 @@ namespace vehicle.domain.Vehicle
 {
     public class LightPassengerCar : IVehicle
     {
-        int vehicleId { get; }
+        int vehicleId { get; set; }
         string plateNo { get; set; }
         string model { get; set; }
         string brand { get; set; }
@@ -54,7 +54,7 @@ namespace vehicle.domain.Vehicle
             this.serviceWeight = serviceWeight;
             this.dateInTrafficFirstTime = dateInTrafficFirstTime;
             this.serviceIsBooked = serviceIsBooked;
-            this.yearlyFee = yearlyFee;
+            this.yearlyFee = 10000;
         }
     }
 }

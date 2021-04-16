@@ -26,11 +26,24 @@ namespace vehicle.repository.Properties {
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.SpecialSettingAttribute(global::System.Configuration.SpecialSetting.ConnectionString)]
-        [global::System.Configuration.DefaultSettingValueAttribute("Data Source=(localdb)\\MSSQLLocalDB;Initial Catalog=VehicleDB;Integrated Security=" +
-            "True;Connect Timeout=30;Encrypt=False;TrustServerCertificate=False")]
+        [global::System.Configuration.DefaultSettingValueAttribute("Data Source=vehicledbserver.database.windows.net;Initial Catalog=master;User ID=l" +
+            "ucas;Password=********;Connect Timeout=30;Encrypt=True;TrustServerCertificate=Fa" +
+            "lse;ApplicationIntent=ReadWrite;MultiSubnetFailover=False")]
         public string VehicleDBConnectionString {
             get {
                 return ((string)(this["VehicleDBConnectionString"]));
+            }
+        }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.SpecialSettingAttribute(global::System.Configuration.SpecialSetting.ConnectionString)]
+        [global::System.Configuration.DefaultSettingValueAttribute("Data Source=vehicledbserver.database.windows.net;Initial Catalog=VehicleDB;User I" +
+            "D=lucas;Password=KetchupoSenap1;Connect Timeout=30;Encrypt=True;TrustServerCerti" +
+            "ficate=False")]
+        public string VehicleDBConnectionString1 {
+            get {
+                return ((string)(this["VehicleDBConnectionString1"]));
             }
         }
     }

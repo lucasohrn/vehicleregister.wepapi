@@ -30,13 +30,16 @@ namespace vehicle.repository
 		
     #region Extensibility Method Definitions
     partial void OnCreated();
+    partial void InsertMaintenance(Maintenance instance);
+    partial void UpdateMaintenance(Maintenance instance);
+    partial void DeleteMaintenance(Maintenance instance);
     partial void InsertVehicleRegister(VehicleRegister instance);
     partial void UpdateVehicleRegister(VehicleRegister instance);
     partial void DeleteVehicleRegister(VehicleRegister instance);
     #endregion
 		
 		public VehicleDBDataContext() : 
-				base(global::vehicle.repository.Properties.Settings.Default.VehicleDBConnectionString, mappingSource)
+				base(global::vehicle.repository.Properties.Settings.Default.VehicleDBConnectionString1, mappingSource)
 		{
 			OnCreated();
 		}
@@ -65,11 +68,11 @@ namespace vehicle.repository
 			OnCreated();
 		}
 		
-		public System.Data.Linq.Table<Service> Services
+		public System.Data.Linq.Table<Maintenance> Maintenances
 		{
 			get
 			{
-				return this.GetTable<Service>();
+				return this.GetTable<Maintenance>();
 			}
 		}
 		
@@ -82,11 +85,13 @@ namespace vehicle.repository
 		}
 	}
 	
-	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.Service")]
-	public partial class Service
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.Maintenance")]
+	public partial class Maintenance : INotifyPropertyChanging, INotifyPropertyChanged
 	{
 		
-		private int _ServiceID;
+		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
+		
+		private int _MaintenanceID;
 		
 		private string _Description;
 		
@@ -94,22 +99,49 @@ namespace vehicle.repository
 		
 		private System.Nullable<int> _VehicleID;
 		
-		public Service()
+		private System.Nullable<int> _IsCompleted;
+		
+		private System.Nullable<System.DateTime> _DateTimeOfService;
+		
+    #region Extensibility Method Definitions
+    partial void OnLoaded();
+    partial void OnValidate(System.Data.Linq.ChangeAction action);
+    partial void OnCreated();
+    partial void OnMaintenanceIDChanging(int value);
+    partial void OnMaintenanceIDChanged();
+    partial void OnDescriptionChanging(string value);
+    partial void OnDescriptionChanged();
+    partial void OnCostChanging(System.Nullable<double> value);
+    partial void OnCostChanged();
+    partial void OnVehicleIDChanging(System.Nullable<int> value);
+    partial void OnVehicleIDChanged();
+    partial void OnIsCompletedChanging(System.Nullable<int> value);
+    partial void OnIsCompletedChanged();
+    partial void OnDateTimeOfServiceChanging(System.Nullable<System.DateTime> value);
+    partial void OnDateTimeOfServiceChanged();
+    #endregion
+		
+		public Maintenance()
 		{
+			OnCreated();
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ServiceID", AutoSync=AutoSync.Always, DbType="Int NOT NULL IDENTITY", IsDbGenerated=true)]
-		public int ServiceID
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_MaintenanceID", AutoSync=AutoSync.OnInsert, DbType="Int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
+		public int MaintenanceID
 		{
 			get
 			{
-				return this._ServiceID;
+				return this._MaintenanceID;
 			}
 			set
 			{
-				if ((this._ServiceID != value))
+				if ((this._MaintenanceID != value))
 				{
-					this._ServiceID = value;
+					this.OnMaintenanceIDChanging(value);
+					this.SendPropertyChanging();
+					this._MaintenanceID = value;
+					this.SendPropertyChanged("MaintenanceID");
+					this.OnMaintenanceIDChanged();
 				}
 			}
 		}
@@ -125,7 +157,11 @@ namespace vehicle.repository
 			{
 				if ((this._Description != value))
 				{
+					this.OnDescriptionChanging(value);
+					this.SendPropertyChanging();
 					this._Description = value;
+					this.SendPropertyChanged("Description");
+					this.OnDescriptionChanged();
 				}
 			}
 		}
@@ -141,7 +177,11 @@ namespace vehicle.repository
 			{
 				if ((this._Cost != value))
 				{
+					this.OnCostChanging(value);
+					this.SendPropertyChanging();
 					this._Cost = value;
+					this.SendPropertyChanged("Cost");
+					this.OnCostChanged();
 				}
 			}
 		}
@@ -157,8 +197,72 @@ namespace vehicle.repository
 			{
 				if ((this._VehicleID != value))
 				{
+					this.OnVehicleIDChanging(value);
+					this.SendPropertyChanging();
 					this._VehicleID = value;
+					this.SendPropertyChanged("VehicleID");
+					this.OnVehicleIDChanged();
 				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_IsCompleted", DbType="Int")]
+		public System.Nullable<int> IsCompleted
+		{
+			get
+			{
+				return this._IsCompleted;
+			}
+			set
+			{
+				if ((this._IsCompleted != value))
+				{
+					this.OnIsCompletedChanging(value);
+					this.SendPropertyChanging();
+					this._IsCompleted = value;
+					this.SendPropertyChanged("IsCompleted");
+					this.OnIsCompletedChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_DateTimeOfService", DbType="DateTime")]
+		public System.Nullable<System.DateTime> DateTimeOfService
+		{
+			get
+			{
+				return this._DateTimeOfService;
+			}
+			set
+			{
+				if ((this._DateTimeOfService != value))
+				{
+					this.OnDateTimeOfServiceChanging(value);
+					this.SendPropertyChanging();
+					this._DateTimeOfService = value;
+					this.SendPropertyChanged("DateTimeOfService");
+					this.OnDateTimeOfServiceChanged();
+				}
+			}
+		}
+		
+		public event PropertyChangingEventHandler PropertyChanging;
+		
+		public event PropertyChangedEventHandler PropertyChanged;
+		
+		protected virtual void SendPropertyChanging()
+		{
+			if ((this.PropertyChanging != null))
+			{
+				this.PropertyChanging(this, emptyChangingEventArgs);
+			}
+		}
+		
+		protected virtual void SendPropertyChanged(String propertyName)
+		{
+			if ((this.PropertyChanged != null))
+			{
+				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
 			}
 		}
 	}
@@ -179,13 +283,13 @@ namespace vehicle.repository
 		
 		private string _VehicleType;
 		
-		private double _ServiceWeight;
+		private System.Nullable<double> _ServiceWeight;
 		
-		private System.DateTime _DateInTrafficFirstTime;
+		private System.Nullable<System.DateTime> _DateInTrafficFirstTime;
 		
-		private int _ServiceIsBooked;
+		private System.Nullable<int> _ServiceIsBooked;
 		
-		private double _YearlyFee;
+		private System.Nullable<double> _YearlyFee;
 		
     #region Extensibility Method Definitions
     partial void OnLoaded();
@@ -201,13 +305,13 @@ namespace vehicle.repository
     partial void OnBrandChanged();
     partial void OnVehicleTypeChanging(string value);
     partial void OnVehicleTypeChanged();
-    partial void OnServiceWeightChanging(double value);
+    partial void OnServiceWeightChanging(System.Nullable<double> value);
     partial void OnServiceWeightChanged();
-    partial void OnDateInTrafficFirstTimeChanging(System.DateTime value);
+    partial void OnDateInTrafficFirstTimeChanging(System.Nullable<System.DateTime> value);
     partial void OnDateInTrafficFirstTimeChanged();
-    partial void OnServiceIsBookedChanging(int value);
+    partial void OnServiceIsBookedChanging(System.Nullable<int> value);
     partial void OnServiceIsBookedChanged();
-    partial void OnYearlyFeeChanging(double value);
+    partial void OnYearlyFeeChanging(System.Nullable<double> value);
     partial void OnYearlyFeeChanged();
     #endregion
 		
@@ -256,7 +360,7 @@ namespace vehicle.repository
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Model", DbType="NVarChar(50) NOT NULL", CanBeNull=false)]
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Model", DbType="NVarChar(50)")]
 		public string Model
 		{
 			get
@@ -276,7 +380,7 @@ namespace vehicle.repository
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Brand", DbType="NVarChar(50) NOT NULL", CanBeNull=false)]
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Brand", DbType="NVarChar(50)")]
 		public string Brand
 		{
 			get
@@ -296,7 +400,7 @@ namespace vehicle.repository
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_VehicleType", DbType="NVarChar(50) NOT NULL", CanBeNull=false)]
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_VehicleType", DbType="NVarChar(50)")]
 		public string VehicleType
 		{
 			get
@@ -316,8 +420,8 @@ namespace vehicle.repository
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ServiceWeight", DbType="Float NOT NULL")]
-		public double ServiceWeight
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ServiceWeight", DbType="Float")]
+		public System.Nullable<double> ServiceWeight
 		{
 			get
 			{
@@ -336,8 +440,8 @@ namespace vehicle.repository
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_DateInTrafficFirstTime", DbType="DateTime NOT NULL")]
-		public System.DateTime DateInTrafficFirstTime
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_DateInTrafficFirstTime", DbType="DateTime")]
+		public System.Nullable<System.DateTime> DateInTrafficFirstTime
 		{
 			get
 			{
@@ -356,8 +460,8 @@ namespace vehicle.repository
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ServiceIsBooked", DbType="Int NOT NULL")]
-		public int ServiceIsBooked
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ServiceIsBooked", DbType="Int")]
+		public System.Nullable<int> ServiceIsBooked
 		{
 			get
 			{
@@ -376,8 +480,8 @@ namespace vehicle.repository
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_YearlyFee", DbType="Float NOT NULL")]
-		public double YearlyFee
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_YearlyFee", DbType="Float")]
+		public System.Nullable<double> YearlyFee
 		{
 			get
 			{

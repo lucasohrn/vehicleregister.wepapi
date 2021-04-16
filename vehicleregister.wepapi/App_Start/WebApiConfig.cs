@@ -32,6 +32,8 @@ namespace vehicleregister.wepapi
             var container = new Container();
             container.Options.DefaultScopedLifestyle = new AsyncScopedLifestyle();
             // Register your types, for instance using the scoped lifestyle:
+            //container.Register<IVehicleRepository, LocalSqlDataStorage>(Lifestyle.Scoped);
+            container.Register<IMaintenanceRepository, LocalSqlDataStorage>(Lifestyle.Scoped);
             container.Register<IVehicleRepository, LocalSqlDataStorage>(Lifestyle.Scoped);
             // This is an extension method from the integration package.
             container.RegisterWebApiControllers(GlobalConfiguration.Configuration);

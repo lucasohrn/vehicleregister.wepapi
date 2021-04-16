@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using vehicle.domain.Interfaces;
 
-namespace vehicle.repository
+namespace vehicle.repository.interfaces
 {
     public interface IVehicleRepository
     {

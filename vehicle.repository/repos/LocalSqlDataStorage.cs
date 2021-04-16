@@ -1,17 +1,21 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
+using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
+using System.Web.Http;
 using vehicle.domain.Interfaces;
 using vehicle.domain.Vehicle;
+using vehicle.repository.interfaces;
 
 namespace vehicle.repository.repos
 {
-    public class LocalSqlDataStorage : IVehicleRepository
+    public class AzureSqlDataStorage : IVehicleRepository, IMaintenanceRepository
     {
         private readonly VehicleDBDataContext datacontext;
-        public LocalSqlDataStorage()
+        public AzureSqlDataStorage()
         {
             this.datacontext = new VehicleDBDataContext();
         }
@@ -35,9 +39,41 @@ namespace vehicle.repository.repos
             this.datacontext.SubmitChanges();
         }
 
+        public void Create(IMaintenance maintenance)
+        {
+            Maintenance new_maintenance = new Maintenance
+            {
+                Description = maintenance.Description,
+                Cost = maintenance.Cost,
+                VehicleID = maintenance.VehicleID,
+                IsCompleted = maintenance.IsCompleted,
+                DateTimeOfService = maintenance.DateTimeOfService
+            };
+
+            this.datacontext.Maintenances.InsertOnSubmit(new_maintenance);
+            this.datacontext.SubmitChanges();
+        }
+
         public void Delete(int vehicleId)
         {
             throw new NotImplementedException();
+        }
+
+        public IEnumerable<IMaintenance> GetAllMaintenances()
+        {
+            var maintenances = new List<IMaintenance>();
+            foreach (var entity in datacontext.Maintenances.ToList())
+            {
+                IMaintenance maintenance = MaintenanceFactory.CreateMaintenance(
+                    entity.Description,
+                    ((float)entity.Cost),
+                    ((int)entity.IsCompleted),
+                    ((int)entity.VehicleID),
+                    ((DateTime)entity.DateTimeOfService));
+
+                maintenances.Add(maintenance);
+            }
+            return maintenances;
         }
 
         public IEnumerable<IVehicle> GetAllVehicles()
@@ -74,14 +110,37 @@ namespace vehicle.repository.repos
                     entity.ServiceIsBooked,
                     ((float)entity.YearlyFee));
 
-                if (entity.PlateNo == plateNo)
+                if (entity.PlateNo == plateNo.ToUpper())
                     return vehicle;
             }
 
             throw new NotImplementedException();
         }
 
+        public IMaintenance GetMaintenance(int maintenanceId)
+        {
+            foreach (var entity in datacontext.Maintenances.ToList())
+            {
+                IMaintenance maintenance = MaintenanceFactory.CreateMaintenance(
+                    entity.Description,
+                    ((float)entity.Cost),
+                    ((int)entity.IsCompleted),
+                    ((int)entity.VehicleID),
+                    ((DateTime)entity.DateTimeOfService));
+
+                if (entity.MaintenanceID == maintenanceId)
+                    return maintenance;
+            }
+
+            throw new NotImplementedException();
+        }
+
         public IVehicle Update(IVehicle vehicle)
+        {
+            throw new NotImplementedException();
+        }
+
+        public IMaintenance Update(IMaintenance maintenance)
         {
             throw new NotImplementedException();
         }
