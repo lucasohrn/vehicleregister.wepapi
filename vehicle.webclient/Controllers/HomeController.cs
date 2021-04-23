@@ -7,6 +7,7 @@ using System.Text;
 using System.Web;
 using System.Web.Mvc;
 using vehicle.dto;
+using vehicle.dto.MaintenanceDTO;
 using vehicle.webclient.Models;
 
 namespace vehicle.webclient.Controllers
@@ -97,6 +98,29 @@ namespace vehicle.webclient.Controllers
                 using (HttpClient client = new HttpClient())
                 {
                     var response = client.PostAsync(new Uri("https://localhost:44379/api/vehicle"), httpcontent).Result;
+                }
+            }
+            return View();
+        }
+
+        public ActionResult CreateMaintenance(CreateMaintenanceModel maintenance)
+        {
+            if (maintenance.PlateNo != null)
+            {
+                var maintenanceRequest = new MaintananceDTO()
+                {
+                    Description = maintenance.Description,
+                    Cost = maintenance.Cost,
+                    PlateNo = maintenance.PlateNo,
+                    IsCompleted = maintenance.IsCompleted,
+                    DateTimeOfService = maintenance.DateTimeOfService
+                };
+
+                string jsonregistercar = JsonConvert.SerializeObject(maintenanceRequest);
+                var httpcontent = new StringContent(jsonregistercar, Encoding.UTF8, "application/json");
+                using (HttpClient client = new HttpClient())
+                {
+                    var response = client.PostAsync(new Uri("https://localhost:44379/api/maintenance"), httpcontent).Result;
                 }
             }
             return View();

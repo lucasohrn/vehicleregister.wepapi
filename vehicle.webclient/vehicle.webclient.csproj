@@ -193,6 +193,7 @@
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Home\GetList.cshtml" />
     <Content Include="Views\Home\CreateVehicle.cshtml" />
+    <Content Include="Views\Home\CreateMaintenance.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

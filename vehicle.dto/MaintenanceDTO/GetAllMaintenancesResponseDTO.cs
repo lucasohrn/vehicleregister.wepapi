@@ -8,7 +8,7 @@ namespace vehicle.dto.MaintenanceDTO
 {
     public class MaintananceDTO
     {
-        public int MaintenanceID { get; set; }
+    //    public int MaintenanceID { get; set; }
         public string Description { get; set; }
         public float Cost { get; set; }
         public string PlateNo { get; set; }

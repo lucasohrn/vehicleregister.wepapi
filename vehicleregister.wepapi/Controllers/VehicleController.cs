@@ -50,7 +50,6 @@ namespace vehicleregister.wepapi.Controllers
             {
                 response.Maintenances.Add(new MaintananceDTO()
                 {
-                    MaintenanceID = maintenance.MaintenanceID,
                     Description = maintenance.Description,
                     Cost = maintenance.Cost,
                     PlateNo = maintenance.PlateNo,

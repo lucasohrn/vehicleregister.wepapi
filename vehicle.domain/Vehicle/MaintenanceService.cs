@@ -12,7 +12,7 @@ namespace vehicle.domain.Vehicle
         int maintenanceId { get; set; }
         string description { get; set; }
         float cost { get; set; }
-        int vehicleId { get; set; }
+        string plateNo { get; set; }
         int isCompleted { get; set; }
         DateTime dateTimeOfService { get; set; }
 
@@ -22,7 +22,7 @@ namespace vehicle.domain.Vehicle
 
         public float Cost => cost;
 
-        public int VehicleID => vehicleId;
+        public string PlateNo => plateNo;
 
         public int IsCompleted => isCompleted;
 
@@ -31,13 +31,13 @@ namespace vehicle.domain.Vehicle
         public MaintenanceService(
             string description,
             float cost,
-            int vehicleId,
+            string plateNo,
             int isCompleted,
             DateTime dateTimeOfService)
         {
             this.description = description;
             this.cost = cost;
-            this.vehicleId = vehicleId;
+            this.plateNo = plateNo;
             this.isCompleted = isCompleted;
             this.dateTimeOfService = dateTimeOfService;
         }
