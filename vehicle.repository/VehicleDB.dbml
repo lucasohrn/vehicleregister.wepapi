@@ -18,7 +18,7 @@
       <Column Name="MaintenanceID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
       <Column Name="Description" Type="System.String" DbType="NVarChar(255)" CanBeNull="true" />
       <Column Name="Cost" Type="System.Double" DbType="Float" CanBeNull="true" />
-      <Column Name="VehicleID" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="PlateNo" Type="System.String" DbType="NVarChar(6)" CanBeNull="true" />
       <Column Name="IsCompleted" Type="System.Int32" DbType="Int" CanBeNull="true" />
       <Column Name="DateTimeOfService" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
     </Type>

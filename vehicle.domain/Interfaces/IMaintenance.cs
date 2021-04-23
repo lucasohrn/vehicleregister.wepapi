@@ -11,7 +11,7 @@ namespace vehicle.domain.Interfaces
         int MaintenanceID { get; }
         string Description { get; }
         float Cost { get; }
-        int VehicleID { get; }
+        string PlateNo { get; }
         int IsCompleted { get; }
         DateTime DateTimeOfService { get; }
     }

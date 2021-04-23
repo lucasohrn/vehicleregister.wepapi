@@ -11,6 +11,11 @@ using vehicle.webclient.Models;
 
 namespace vehicle.webclient.Controllers
 {
+    public class UserIdentity
+    {
+        public string UserName { get; set; }
+        public string Token { get; set; }
+    }
     public class HomeController : Controller
     {
         private readonly IWebApiEndpoints _endpoints;
@@ -19,8 +24,50 @@ namespace vehicle.webclient.Controllers
             _endpoints = new WebApiEndpoints();
         }
 
+        private string GetToken(string username, string password)
+        {
+            string token = string.Empty;
+            using (HttpClient client = new HttpClient())
+            {
+                var httpcontent = new StringContent(username, Encoding.UTF8, "application/x-www-form-urlencoded");
+                var response = client.PostAsync(new Uri("https://localhost:44379/token"), httpcontent).Result;
+                token = response.ToString();
+            }
+            // Mot web api för att hämta token
+            return token;
+        }
+
+        public ActionResult UserLogIn(string username, string password)
+        {
+            string token = GetToken(username, password);
+            if (string.IsNullOrEmpty(token))
+                return View("LogInErrorView");
+
+            var ui = new UserIdentity
+            {
+                UserName = username,
+                Token = token
+            };
+
+            var usersLoggedIn = new List<UserIdentity>();
+            usersLoggedIn.Add(ui);
+            Session["BearerToken"] = usersLoggedIn;
+
+            return View("LoginSucces");
+        }
+
         public ActionResult Index()
         {
+            //Först:
+            //Hämta token
+            //Logga in
+            //Authenticated = yes / no
+            //Roles
+            // key value
+            //Authorization  bearer xxxxxxxxxx
+
+
+
             return View();
         }
 
@@ -44,7 +91,7 @@ namespace vehicle.webclient.Controllers
                     DateInTrafficFirstTime = vehicle.DateInTrafficFirstTime,
                     ServiceIsBooked = vehicle.ServiceIsBooked
                 };
-                
+
                 string jsonregistercar = JsonConvert.SerializeObject(vehicleRequest);
                 var httpcontent = new StringContent(jsonregistercar, Encoding.UTF8, "application/json");
                 using (HttpClient client = new HttpClient())

@@ -32,7 +32,7 @@ namespace vehicleregister.wepapi.Controllers
             IMaintenance maintenance = MaintenanceFactory.CreateMaintenance(
                 request.Description,
                 request.Cost,
-                request.VehicleID,
+                request.PlateNo,
                 request.IsCompleted,
                 request.DateTimeOfService);
 
@@ -53,7 +53,7 @@ namespace vehicleregister.wepapi.Controllers
                     MaintenanceID = maintenance.MaintenanceID,
                     Description = maintenance.Description,
                     Cost = maintenance.Cost,
-                    VehicleID = maintenance.VehicleID,
+                    PlateNo = maintenance.PlateNo,
                     IsCompleted = maintenance.IsCompleted,
                     DateTimeOfService = maintenance.DateTimeOfService
                 });
@@ -80,6 +80,7 @@ namespace vehicleregister.wepapi.Controllers
             this._vehicleRepository.Create(vehicle);
             return Ok();
         }
+
 
         [HttpGet]
         [Route("api/getvehicles")]

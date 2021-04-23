@@ -19,11 +19,11 @@ namespace vehicleregister.wepapi.Provider
         {
             //If the cridentials is ok, generate the token for passing through the headers for other access.
             var identity = new ClaimsIdentity(context.Options.AuthenticationType);
-            if (context.UserName == "admin" && context.Password == "webapi123")
+            if (context.UserName == "lucas" && context.Password == "apelsin")
             {
                 identity.AddClaim(new Claim(ClaimTypes.Role, "admin"));
                 identity.AddClaim(new Claim("username", "admin"));
-                identity.AddClaim(new Claim(ClaimTypes.Name, "Peter Ladavats"));
+                identity.AddClaim(new Claim(ClaimTypes.Name, "Lucas Öhrn"));
                 context.Validated(identity);
             }
             else if (context.UserName == "clientuser" && context.Password == "clientuser123")

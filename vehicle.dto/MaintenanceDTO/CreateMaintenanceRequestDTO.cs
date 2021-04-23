@@ -11,7 +11,7 @@ namespace vehicle.dto.MaintenanceDTO
         public int MaintenanceID { get; set; }
         public string Description { get; set; }
         public float Cost { get; set; }
-        public int VehicleID { get; set; }
+        public string PlateNo { get; set; }
         public int IsCompleted { get; set; }
         public DateTime DateTimeOfService { get; set; }
     }
@@ -19,7 +19,7 @@ namespace vehicle.dto.MaintenanceDTO
     public interface ICreateMaintenance
     {
         string Description { get; set; }
-        int VehicleID { get; set; }
+        string PlateNo { get; set; }
         int IsCompleted { get; set; }
         DateTime DateTimeOfService { get; set; }
     }

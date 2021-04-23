@@ -6,11 +6,11 @@ using System.Threading.Tasks;
 using System.Web.Http;
 using vehicleregister.wepapi.Provider;
 
-[assembly: OwinStartup(typeof(vehicleregister.wepapi.App_Start.Startup1))]
+[assembly: OwinStartup(typeof(vehicleregister.wepapi.App_Start.Startup))]
 
 namespace vehicleregister.wepapi.App_Start
 {
-    public class Startup1
+    public class Startup
     {
         public void Configuration(IAppBuilder app)
         {
@@ -31,7 +31,6 @@ namespace vehicleregister.wepapi.App_Start
 
             HttpConfiguration config = new HttpConfiguration();
             WebApiConfig.Register(config);
-
         }
     }
 }

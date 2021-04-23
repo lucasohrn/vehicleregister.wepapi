@@ -150,6 +150,7 @@
     </Compile>
     <Compile Include="Models\CreateVehicleModel.cs" />
     <Compile Include="Models\IWebApiEndpoints.cs" />
+    <Compile Include="Models\MaintenanceModel.cs" />
     <Compile Include="Models\VehicleModel.cs" />
     <Compile Include="Models\WebApiEndpoints.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

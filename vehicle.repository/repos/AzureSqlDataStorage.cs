@@ -45,7 +45,7 @@ namespace vehicle.repository.repos
             {
                 Description = maintenance.Description,
                 Cost = maintenance.Cost,
-                VehicleID = maintenance.VehicleID,
+                PlateNo = maintenance.PlateNo,
                 IsCompleted = maintenance.IsCompleted,
                 DateTimeOfService = maintenance.DateTimeOfService
             };
@@ -67,8 +67,8 @@ namespace vehicle.repository.repos
                 IMaintenance maintenance = MaintenanceFactory.CreateMaintenance(
                     entity.Description,
                     ((float)entity.Cost),
+                    entity.PlateNo,
                     ((int)entity.IsCompleted),
-                    ((int)entity.VehicleID),
                     ((DateTime)entity.DateTimeOfService));
 
                 maintenances.Add(maintenance);
@@ -124,8 +124,8 @@ namespace vehicle.repository.repos
                 IMaintenance maintenance = MaintenanceFactory.CreateMaintenance(
                     entity.Description,
                     ((float)entity.Cost),
+                    entity.PlateNo,
                     ((int)entity.IsCompleted),
-                    ((int)entity.VehicleID),
                     ((DateTime)entity.DateTimeOfService));
 
                 if (entity.MaintenanceID == maintenanceId)

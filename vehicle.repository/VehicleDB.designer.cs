@@ -351,7 +351,7 @@ namespace vehicle.repository
 		
 		private System.Nullable<double> _Cost;
 		
-		private System.Nullable<int> _VehicleID;
+		private string _PlateNo;
 		
 		private System.Nullable<int> _IsCompleted;
 		
@@ -367,8 +367,8 @@ namespace vehicle.repository
     partial void OnDescriptionChanged();
     partial void OnCostChanging(System.Nullable<double> value);
     partial void OnCostChanged();
-    partial void OnVehicleIDChanging(System.Nullable<int> value);
-    partial void OnVehicleIDChanged();
+    partial void OnPlateNoChanging(string value);
+    partial void OnPlateNoChanged();
     partial void OnIsCompletedChanging(System.Nullable<int> value);
     partial void OnIsCompletedChanged();
     partial void OnDateTimeOfServiceChanging(System.Nullable<System.DateTime> value);
@@ -440,22 +440,22 @@ namespace vehicle.repository
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_VehicleID", DbType="Int")]
-		public System.Nullable<int> VehicleID
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_PlateNo", DbType="NVarChar(6)")]
+		public string PlateNo
 		{
 			get
 			{
-				return this._VehicleID;
+				return this._PlateNo;
 			}
 			set
 			{
-				if ((this._VehicleID != value))
+				if ((this._PlateNo != value))
 				{
-					this.OnVehicleIDChanging(value);
+					this.OnPlateNoChanging(value);
 					this.SendPropertyChanging();
-					this._VehicleID = value;
-					this.SendPropertyChanged("VehicleID");
-					this.OnVehicleIDChanged();
+					this._PlateNo = value;
+					this.SendPropertyChanged("PlateNo");
+					this.OnPlateNoChanged();
 				}
 			}
 		}

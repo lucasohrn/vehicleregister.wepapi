@@ -12,11 +12,11 @@ namespace vehicle.domain.Vehicle
         public static IMaintenance CreateMaintenance(
             string description,
             float cost,
-            int vehicleId,
+            string plateNo,
             int isCompleted,
             DateTime dateTimeOfService)
         {
-            return new MaintenanceService(description, cost, vehicleId, isCompleted, dateTimeOfService);
+            return new MaintenanceService(description, cost, plateNo, isCompleted, dateTimeOfService);
         }
     }
 }
