@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net.Http;
+using System.Text;
 using System.Web;
 using System.Web.Mvc;
 using vehicle.dto;
@@ -20,37 +21,37 @@ namespace vehicle.webclient.Controllers
 
         public ActionResult Index()
         {
+            return View();
+        }
 
-            //using (HttpClient client = new HttpClient())
-            //{
-            //    //var token = Session["OurBearerToken"].ToString(); //Where Username == username;
-            //    //client.DefaultRequestHeaders.Add("Authorization", token);
-            //    var response = client.GetAsync("https://localhost:44379/api/getvehicles").Result;
-            //    if (response != null)
-            //    {
-            //        var jsonString = response.Content.ReadAsStringAsync().Result;
-            //        var vehicleResponse = JsonConvert.DeserializeObject<GetAllVehiclesResponseDTO>(jsonString);
+        public ActionResult ShowCreateVehicle()
+        {
+            return View();
 
-            //        var vehicles = new List<VehicleListModel>();
-            //        foreach (var vehicle in vehicleResponse.Vehicles)
-            //        {
-            //            var vehicleListModel = new VehicleListModel
-            //            {
-            //                PlateNo = vehicle.PlateNo,
-            //                Model = vehicle.Model,
-            //                Brand = vehicle.Brand,
-            //                VehicleType = vehicle.VehicleType,
-            //                ServiceWeight = vehicle.ServiceWeight,
-            //                DateInTrafficFirstTime = vehicle.DateInTrafficFirstTime,
-            //                ServiceIsBooked = vehicle.ServiceIsBooked
+        }
 
-            //            };
-            //            vehicles.Add(vehicleListModel);
-            //        }
-            //        ViewBag.Vehicles = vehicles;
-            //    }
-            //}
-
+        public ActionResult CreateVehicle(CreateVehicleModel vehicle)
+        {
+            if (vehicle.PlateNo != null)
+            {
+                var vehicleRequest = new VehicleDTO()
+                {
+                    PlateNo = vehicle.PlateNo,
+                    Model = vehicle.Model,
+                    Brand = vehicle.Brand,
+                    VehicleType = vehicle.VehicleType,
+                    ServiceWeight = vehicle.ServiceWeight,
+                    DateInTrafficFirstTime = vehicle.DateInTrafficFirstTime,
+                    ServiceIsBooked = vehicle.ServiceIsBooked
+                };
+                
+                string jsonregistercar = JsonConvert.SerializeObject(vehicleRequest);
+                var httpcontent = new StringContent(jsonregistercar, Encoding.UTF8, "application/json");
+                using (HttpClient client = new HttpClient())
+                {
+                    var response = client.PostAsync(new Uri("https://localhost:44379/api/vehicle"), httpcontent).Result;
+                }
+            }
             return View();
         }
 
@@ -65,7 +66,7 @@ namespace vehicle.webclient.Controllers
                     var jsonString = response.Content.ReadAsStringAsync().Result;
                     var vehicleResponse = JsonConvert.DeserializeObject<GetAllVehiclesResponseDTO>(jsonString);
 
-                    
+
                     foreach (var vehicle in vehicleResponse.Vehicles)
                     {
                         var vehicleListModel = new VehicleListModel

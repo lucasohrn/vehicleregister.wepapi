@@ -30,12 +30,12 @@ namespace vehicle.repository
 		
     #region Extensibility Method Definitions
     partial void OnCreated();
-    partial void InsertMaintenance(Maintenance instance);
-    partial void UpdateMaintenance(Maintenance instance);
-    partial void DeleteMaintenance(Maintenance instance);
     partial void InsertVehicleRegister(VehicleRegister instance);
     partial void UpdateVehicleRegister(VehicleRegister instance);
     partial void DeleteVehicleRegister(VehicleRegister instance);
+    partial void InsertMaintenance(Maintenance instance);
+    partial void UpdateMaintenance(Maintenance instance);
+    partial void DeleteMaintenance(Maintenance instance);
     #endregion
 		
 		public VehicleDBDataContext() : 
@@ -68,14 +68,6 @@ namespace vehicle.repository
 			OnCreated();
 		}
 		
-		public System.Data.Linq.Table<Maintenance> Maintenances
-		{
-			get
-			{
-				return this.GetTable<Maintenance>();
-			}
-		}
-		
 		public System.Data.Linq.Table<VehicleRegister> VehicleRegisters
 		{
 			get
@@ -83,186 +75,12 @@ namespace vehicle.repository
 				return this.GetTable<VehicleRegister>();
 			}
 		}
-	}
-	
-	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.Maintenance")]
-	public partial class Maintenance : INotifyPropertyChanging, INotifyPropertyChanged
-	{
 		
-		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
-		
-		private int _MaintenanceID;
-		
-		private string _Description;
-		
-		private System.Nullable<double> _Cost;
-		
-		private System.Nullable<int> _VehicleID;
-		
-		private System.Nullable<int> _IsCompleted;
-		
-		private System.Nullable<System.DateTime> _DateTimeOfService;
-		
-    #region Extensibility Method Definitions
-    partial void OnLoaded();
-    partial void OnValidate(System.Data.Linq.ChangeAction action);
-    partial void OnCreated();
-    partial void OnMaintenanceIDChanging(int value);
-    partial void OnMaintenanceIDChanged();
-    partial void OnDescriptionChanging(string value);
-    partial void OnDescriptionChanged();
-    partial void OnCostChanging(System.Nullable<double> value);
-    partial void OnCostChanged();
-    partial void OnVehicleIDChanging(System.Nullable<int> value);
-    partial void OnVehicleIDChanged();
-    partial void OnIsCompletedChanging(System.Nullable<int> value);
-    partial void OnIsCompletedChanged();
-    partial void OnDateTimeOfServiceChanging(System.Nullable<System.DateTime> value);
-    partial void OnDateTimeOfServiceChanged();
-    #endregion
-		
-		public Maintenance()
-		{
-			OnCreated();
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_MaintenanceID", AutoSync=AutoSync.OnInsert, DbType="Int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
-		public int MaintenanceID
+		public System.Data.Linq.Table<Maintenance> Maintenances
 		{
 			get
 			{
-				return this._MaintenanceID;
-			}
-			set
-			{
-				if ((this._MaintenanceID != value))
-				{
-					this.OnMaintenanceIDChanging(value);
-					this.SendPropertyChanging();
-					this._MaintenanceID = value;
-					this.SendPropertyChanged("MaintenanceID");
-					this.OnMaintenanceIDChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Description", DbType="NVarChar(255)")]
-		public string Description
-		{
-			get
-			{
-				return this._Description;
-			}
-			set
-			{
-				if ((this._Description != value))
-				{
-					this.OnDescriptionChanging(value);
-					this.SendPropertyChanging();
-					this._Description = value;
-					this.SendPropertyChanged("Description");
-					this.OnDescriptionChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Cost", DbType="Float")]
-		public System.Nullable<double> Cost
-		{
-			get
-			{
-				return this._Cost;
-			}
-			set
-			{
-				if ((this._Cost != value))
-				{
-					this.OnCostChanging(value);
-					this.SendPropertyChanging();
-					this._Cost = value;
-					this.SendPropertyChanged("Cost");
-					this.OnCostChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_VehicleID", DbType="Int")]
-		public System.Nullable<int> VehicleID
-		{
-			get
-			{
-				return this._VehicleID;
-			}
-			set
-			{
-				if ((this._VehicleID != value))
-				{
-					this.OnVehicleIDChanging(value);
-					this.SendPropertyChanging();
-					this._VehicleID = value;
-					this.SendPropertyChanged("VehicleID");
-					this.OnVehicleIDChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_IsCompleted", DbType="Int")]
-		public System.Nullable<int> IsCompleted
-		{
-			get
-			{
-				return this._IsCompleted;
-			}
-			set
-			{
-				if ((this._IsCompleted != value))
-				{
-					this.OnIsCompletedChanging(value);
-					this.SendPropertyChanging();
-					this._IsCompleted = value;
-					this.SendPropertyChanged("IsCompleted");
-					this.OnIsCompletedChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_DateTimeOfService", DbType="DateTime")]
-		public System.Nullable<System.DateTime> DateTimeOfService
-		{
-			get
-			{
-				return this._DateTimeOfService;
-			}
-			set
-			{
-				if ((this._DateTimeOfService != value))
-				{
-					this.OnDateTimeOfServiceChanging(value);
-					this.SendPropertyChanging();
-					this._DateTimeOfService = value;
-					this.SendPropertyChanged("DateTimeOfService");
-					this.OnDateTimeOfServiceChanged();
-				}
-			}
-		}
-		
-		public event PropertyChangingEventHandler PropertyChanging;
-		
-		public event PropertyChangedEventHandler PropertyChanged;
-		
-		protected virtual void SendPropertyChanging()
-		{
-			if ((this.PropertyChanging != null))
-			{
-				this.PropertyChanging(this, emptyChangingEventArgs);
-			}
-		}
-		
-		protected virtual void SendPropertyChanged(String propertyName)
-		{
-			if ((this.PropertyChanged != null))
-			{
-				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+				return this.GetTable<Maintenance>();
 			}
 		}
 	}
@@ -496,6 +314,188 @@ namespace vehicle.repository
 					this._YearlyFee = value;
 					this.SendPropertyChanged("YearlyFee");
 					this.OnYearlyFeeChanged();
+				}
+			}
+		}
+		
+		public event PropertyChangingEventHandler PropertyChanging;
+		
+		public event PropertyChangedEventHandler PropertyChanged;
+		
+		protected virtual void SendPropertyChanging()
+		{
+			if ((this.PropertyChanging != null))
+			{
+				this.PropertyChanging(this, emptyChangingEventArgs);
+			}
+		}
+		
+		protected virtual void SendPropertyChanged(String propertyName)
+		{
+			if ((this.PropertyChanged != null))
+			{
+				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.Maintenance")]
+	public partial class Maintenance : INotifyPropertyChanging, INotifyPropertyChanged
+	{
+		
+		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
+		
+		private int _MaintenanceID;
+		
+		private string _Description;
+		
+		private System.Nullable<double> _Cost;
+		
+		private System.Nullable<int> _VehicleID;
+		
+		private System.Nullable<int> _IsCompleted;
+		
+		private System.Nullable<System.DateTime> _DateTimeOfService;
+		
+    #region Extensibility Method Definitions
+    partial void OnLoaded();
+    partial void OnValidate(System.Data.Linq.ChangeAction action);
+    partial void OnCreated();
+    partial void OnMaintenanceIDChanging(int value);
+    partial void OnMaintenanceIDChanged();
+    partial void OnDescriptionChanging(string value);
+    partial void OnDescriptionChanged();
+    partial void OnCostChanging(System.Nullable<double> value);
+    partial void OnCostChanged();
+    partial void OnVehicleIDChanging(System.Nullable<int> value);
+    partial void OnVehicleIDChanged();
+    partial void OnIsCompletedChanging(System.Nullable<int> value);
+    partial void OnIsCompletedChanged();
+    partial void OnDateTimeOfServiceChanging(System.Nullable<System.DateTime> value);
+    partial void OnDateTimeOfServiceChanged();
+    #endregion
+		
+		public Maintenance()
+		{
+			OnCreated();
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_MaintenanceID", AutoSync=AutoSync.OnInsert, DbType="Int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
+		public int MaintenanceID
+		{
+			get
+			{
+				return this._MaintenanceID;
+			}
+			set
+			{
+				if ((this._MaintenanceID != value))
+				{
+					this.OnMaintenanceIDChanging(value);
+					this.SendPropertyChanging();
+					this._MaintenanceID = value;
+					this.SendPropertyChanged("MaintenanceID");
+					this.OnMaintenanceIDChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Description", DbType="NVarChar(255)")]
+		public string Description
+		{
+			get
+			{
+				return this._Description;
+			}
+			set
+			{
+				if ((this._Description != value))
+				{
+					this.OnDescriptionChanging(value);
+					this.SendPropertyChanging();
+					this._Description = value;
+					this.SendPropertyChanged("Description");
+					this.OnDescriptionChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Cost", DbType="Float")]
+		public System.Nullable<double> Cost
+		{
+			get
+			{
+				return this._Cost;
+			}
+			set
+			{
+				if ((this._Cost != value))
+				{
+					this.OnCostChanging(value);
+					this.SendPropertyChanging();
+					this._Cost = value;
+					this.SendPropertyChanged("Cost");
+					this.OnCostChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_VehicleID", DbType="Int")]
+		public System.Nullable<int> VehicleID
+		{
+			get
+			{
+				return this._VehicleID;
+			}
+			set
+			{
+				if ((this._VehicleID != value))
+				{
+					this.OnVehicleIDChanging(value);
+					this.SendPropertyChanging();
+					this._VehicleID = value;
+					this.SendPropertyChanged("VehicleID");
+					this.OnVehicleIDChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_IsCompleted", DbType="Int")]
+		public System.Nullable<int> IsCompleted
+		{
+			get
+			{
+				return this._IsCompleted;
+			}
+			set
+			{
+				if ((this._IsCompleted != value))
+				{
+					this.OnIsCompletedChanging(value);
+					this.SendPropertyChanging();
+					this._IsCompleted = value;
+					this.SendPropertyChanged("IsCompleted");
+					this.OnIsCompletedChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_DateTimeOfService", DbType="DateTime")]
+		public System.Nullable<System.DateTime> DateTimeOfService
+		{
+			get
+			{
+				return this._DateTimeOfService;
+			}
+			set
+			{
+				if ((this._DateTimeOfService != value))
+				{
+					this.OnDateTimeOfServiceChanging(value);
+					this.SendPropertyChanging();
+					this._DateTimeOfService = value;
+					this.SendPropertyChanged("DateTimeOfService");
+					this.OnDateTimeOfServiceChanged();
 				}
 			}
 		}

@@ -1,15 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?><Database Name="VehicleDB" Class="VehicleDBDataContext" xmlns="http://schemas.microsoft.com/linqtosql/dbml/2007">
   <Connection Mode="AppSettings" ConnectionString="Data Source=vehicledbserver.database.windows.net;Initial Catalog=VehicleDB;User ID=lucas;Connect Timeout=30;Encrypt=True;TrustServerCertificate=False" SettingsObjectName="vehicle.repository.Properties.Settings" SettingsPropertyName="VehicleDBConnectionString1" Provider="System.Data.SqlClient" />
-  <Table Name="dbo.Maintenance" Member="Maintenances">
-    <Type Name="Maintenance">
-      <Column Name="MaintenanceID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
-      <Column Name="Description" Type="System.String" DbType="NVarChar(255)" CanBeNull="true" />
-      <Column Name="Cost" Type="System.Double" DbType="Float" CanBeNull="true" />
-      <Column Name="VehicleID" Type="System.Int32" DbType="Int" CanBeNull="true" />
-      <Column Name="IsCompleted" Type="System.Int32" DbType="Int" CanBeNull="true" />
-      <Column Name="DateTimeOfService" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
-    </Type>
-  </Table>
   <Table Name="dbo.VehicleRegister" Member="VehicleRegisters">
     <Type Name="VehicleRegister">
       <Column Name="VehicleID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
@@ -21,6 +11,16 @@
       <Column Name="DateInTrafficFirstTime" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
       <Column Name="ServiceIsBooked" Type="System.Int32" DbType="Int" CanBeNull="true" />
       <Column Name="YearlyFee" Type="System.Double" DbType="Float" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Maintenance" Member="Maintenances">
+    <Type Name="Maintenance">
+      <Column Name="MaintenanceID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="Description" Type="System.String" DbType="NVarChar(255)" CanBeNull="true" />
+      <Column Name="Cost" Type="System.Double" DbType="Float" CanBeNull="true" />
+      <Column Name="VehicleID" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="IsCompleted" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="DateTimeOfService" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
     </Type>
   </Table>
 </Database>

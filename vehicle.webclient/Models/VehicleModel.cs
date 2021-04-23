@@ -7,7 +7,7 @@ namespace vehicle.webclient.Models
 {
     public class VehicleListModel
     {
-        public int VehcileID { get; set; }
+        //public int VehcileID { get; set; }
         public string PlateNo { get; set; }
         public string Model { get; set; }
         public string Brand { get; set; }
