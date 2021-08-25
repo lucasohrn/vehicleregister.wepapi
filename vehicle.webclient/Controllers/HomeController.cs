@@ -9,6 +9,7 @@ using System.Web.Mvc;
 using vehicle.dto;
 using vehicle.dto.MaintenanceDTO;
 using vehicle.webclient.Models;
+using System.Configuration;
 
 namespace vehicle.webclient.Controllers
 {
@@ -80,6 +81,8 @@ namespace vehicle.webclient.Controllers
 
         public ActionResult CreateVehicle(CreateVehicleModel vehicle)
         {
+            var url = ConfigurationManager.AppSettings["HostName"];
+
             if (vehicle.PlateNo != null)
             {
                 var vehicleRequest = new VehicleDTO()
@@ -97,7 +100,7 @@ namespace vehicle.webclient.Controllers
                 var httpcontent = new StringContent(jsonregistercar, Encoding.UTF8, "application/json");
                 using (HttpClient client = new HttpClient())
                 {
-                    var response = client.PostAsync(new Uri("https://localhost:44379/api/vehicle"), httpcontent).Result;
+                    var response = client.PostAsync(url + "api/vehicle", httpcontent).Result;
                 }
             }
             return View();
@@ -105,6 +108,8 @@ namespace vehicle.webclient.Controllers
 
         public ActionResult CreateMaintenance(CreateMaintenanceModel maintenance)
         {
+            var url = ConfigurationManager.AppSettings["HostName"];
+
             if (maintenance.PlateNo != null)
             {
                 var maintenanceRequest = new MaintananceDTO()
@@ -120,7 +125,7 @@ namespace vehicle.webclient.Controllers
                 var httpcontent = new StringContent(jsonregistercar, Encoding.UTF8, "application/json");
                 using (HttpClient client = new HttpClient())
                 {
-                    var response = client.PostAsync(new Uri("https://localhost:44379/api/maintenance"), httpcontent).Result;
+                    var response = client.PostAsync(url + "api/maintenance", httpcontent).Result;
                 }
             }
             return View();
@@ -128,10 +133,11 @@ namespace vehicle.webclient.Controllers
 
         public ActionResult GetList()
         {
+            var url = ConfigurationManager.AppSettings["HostName"];
             var vehicles = new List<VehicleListModel>();
             using (HttpClient client = new HttpClient())
             {
-                var response = client.GetAsync("https://localhost:44379/api/getvehicles").Result;
+                var response = client.GetAsync(url + "api/getvehicles").Result;
                 if (response != null)
                 {
                     var jsonString = response.Content.ReadAsStringAsync().Result;
