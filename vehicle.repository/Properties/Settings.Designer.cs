@@ -12,7 +12,7 @@ namespace vehicle.repository.Properties {
     
     
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.Editors.SettingsDesigner.SettingsSingleFileGenerator", "16.8.1.0")]
+    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.Editors.SettingsDesigner.SettingsSingleFileGenerator", "16.10.0.0")]
     internal sealed partial class Settings : global::System.Configuration.ApplicationSettingsBase {
         
         private static Settings defaultInstance = ((Settings)(global::System.Configuration.ApplicationSettingsBase.Synchronized(new Settings())));
@@ -26,21 +26,8 @@ namespace vehicle.repository.Properties {
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.SpecialSettingAttribute(global::System.Configuration.SpecialSetting.ConnectionString)]
-        [global::System.Configuration.DefaultSettingValueAttribute("Data Source=vehicledbserver.database.windows.net;Initial Catalog=VehicleDB;User I" +
-            "D=lucas;Password=KetchupoSenap1;Connect Timeout=30;Encrypt=True;TrustServerCerti" +
-            "ficate=False")]
-        public string VehicleDBConnectionString1 {
-            get {
-                return ((string)(this["VehicleDBConnectionString1"]));
-            }
-        }
-        
-        [global::System.Configuration.ApplicationScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.SpecialSettingAttribute(global::System.Configuration.SpecialSetting.ConnectionString)]
-        [global::System.Configuration.DefaultSettingValueAttribute("Data Source=vehicledbserver.database.windows.net;Initial Catalog=master;User ID=l" +
-            "ucas;Password=KetchupoSenap1;Connect Timeout=30;Encrypt=True;TrustServerCertific" +
-            "ate=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False")]
+        [global::System.Configuration.DefaultSettingValueAttribute("Data Source=(localdb)\\MSSQLLocalDB;Initial Catalog=VehicleDB;Integrated Security=" +
+            "True;Connect Timeout=30;Encrypt=False;TrustServerCertificate=False")]
         public string VehicleDBConnectionString {
             get {
                 return ((string)(this["VehicleDBConnectionString"]));
