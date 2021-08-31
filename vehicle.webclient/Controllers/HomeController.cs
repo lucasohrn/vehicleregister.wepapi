@@ -28,11 +28,13 @@ namespace vehicle.webclient.Controllers
 
         private string GetToken(string username, string password)
         {
+            var url = ConfigurationManager.AppSettings["HostName"];
+
             string token = string.Empty;
             using (HttpClient client = new HttpClient())
             {
                 var httpcontent = new StringContent(username, Encoding.UTF8, "application/x-www-form-urlencoded");
-                var response = client.PostAsync(new Uri("https://localhost:44379/token"), httpcontent).Result;
+                var response = client.PostAsync(new Uri(url + "api/token"), httpcontent).Result;
                 token = response.ToString();
             }
             // Mot web api för att hämta token

@@ -30,7 +30,7 @@ namespace vehicleregister.wepapi.Provider
             {
                 identity.AddClaim(new Claim(ClaimTypes.Role, "user"));
                 identity.AddClaim(new Claim("username", "user"));
-                identity.AddClaim(new Claim(ClaimTypes.Name, "Peter Ladavats"));
+                identity.AddClaim(new Claim(ClaimTypes.Name, "Lucas Öhrn"));
                 context.Validated(identity);
             }
             else

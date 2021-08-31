@@ -25,6 +25,7 @@ namespace vehicleregister.wepapi.Controllers
             this._maintenanceRepository = maintenanceRepository;
         }
 
+        [Authorize(Roles = "admin")]
         [HttpPost]
         [Route("api/maintenance")]
         public IHttpActionResult CreateMaintenance(CreateMaintenanceRequestDTO request)
@@ -41,6 +42,7 @@ namespace vehicleregister.wepapi.Controllers
             return Ok();
         }
 
+        [Authorize(Roles = "user")]
         [HttpGet]
         [Route("api/getmaintenances")]
         public IHttpActionResult GetMaintenances()
@@ -61,6 +63,7 @@ namespace vehicleregister.wepapi.Controllers
             return Ok(response);
         }
 
+        [Authorize(Roles = "admin")]
         [HttpPost]
         [Route("api/vehicle")]
         public IHttpActionResult CreateVehicle(CreateVehicleRequestDTO request)
@@ -80,7 +83,7 @@ namespace vehicleregister.wepapi.Controllers
             return Ok();
         }
 
-
+        [Authorize(Roles = "user")]
         [HttpGet]
         [Route("api/getvehicles")]
         public IHttpActionResult GetVehicles()
@@ -104,6 +107,7 @@ namespace vehicleregister.wepapi.Controllers
             return Ok(response);
         }
 
+        [Authorize(Roles = "user")]
         [HttpGet]
         [Route("api/getvehicle")]
         public IHttpActionResult GetVehicle(string plateNo)
@@ -112,6 +116,7 @@ namespace vehicleregister.wepapi.Controllers
             return Ok(selectedVehicle);
         }
 
+        [Authorize(Roles = "user")]
         [HttpGet]
         [Route("api/getmaintenance")]
         public IHttpActionResult GetMaintenance(int maintenanceId)
