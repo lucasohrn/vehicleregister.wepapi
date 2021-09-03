@@ -147,6 +147,7 @@
     </Compile>
     <Compile Include="Models\CreateVehicleModel.cs" />
     <Compile Include="Models\IWebApiEndpoints.cs" />
+    <Compile Include="Models\LogInModel.cs" />
     <Compile Include="Models\MaintenanceModel.cs" />
     <Compile Include="Models\VehicleModel.cs" />
     <Compile Include="Models\WebApiEndpoints.cs" />
@@ -187,10 +188,11 @@
     <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Views\Home\About.cshtml" />
     <Content Include="Views\Home\Contact.cshtml" />
-    <Content Include="Views\Home\Index.cshtml" />
+    <Content Include="Views\Home\HomePage.cshtml" />
     <Content Include="Views\Home\GetList.cshtml" />
     <Content Include="Views\Home\CreateVehicle.cshtml" />
     <Content Include="Views\Home\CreateMaintenance.cshtml" />
+    <Content Include="Views\Home\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

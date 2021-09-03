@@ -17,16 +17,17 @@
                         <span class="icon-bar"></span>
                         <span class="icon-bar"></span>
                     </button>
-                    @Html.ActionLink("Application name", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
+                    <h2>Lucas Cars</h2>
                 </div>
                 <div class="navbar-collapse collapse">
                     <ul class="nav navbar-nav">
-                        <li>@Html.ActionLink("Home", "Index", "Home")</li>
-                        <li>@Html.ActionLink("About", "About", "Home")</li>
-                        <li>@Html.ActionLink("Contact", "Contact", "Home")</li>
+                        
+                        @*<li>@Html.ActionLink("About", "About", "Home")</li>
+                        <li>@Html.ActionLink("Contact", "Contact", "Home")</li>*@
                         <li>@Html.ActionLink("Car Register", "GetList", "Home")</li>
                         <li>@Html.ActionLink("Create Vehicle", "CreateVehicle", "Home")</li>
                         <li>@Html.ActionLink("Book Maintenance", "CreateMaintenance", "Home")</li>
+                        <li>@Html.ActionLink("LogIn", "Index", "Home")</li>
                     </ul>
                 </div>
             </div>

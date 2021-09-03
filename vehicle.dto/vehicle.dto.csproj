@@ -98,9 +98,11 @@
   <ItemGroup>
     <Compile Include="GetAllVehiclesResponse.cs" />
     <Compile Include="CreateVehicleRequestDTO.cs" />
+    <Compile Include="LogInDTO.cs" />
     <Compile Include="MaintenanceDTO\CreateMaintenanceRequestDTO.cs" />
     <Compile Include="MaintenanceDTO\GetAllMaintenancesResponseDTO.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="TokenDTO.cs" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>

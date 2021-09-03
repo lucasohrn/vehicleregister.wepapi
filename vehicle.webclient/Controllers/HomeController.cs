@@ -10,6 +10,7 @@ using vehicle.dto;
 using vehicle.dto.MaintenanceDTO;
 using vehicle.webclient.Models;
 using System.Configuration;
+using System.Net.Http.Headers;
 
 namespace vehicle.webclient.Controllers
 {
@@ -18,6 +19,12 @@ namespace vehicle.webclient.Controllers
         public string UserName { get; set; }
         public string Token { get; set; }
     }
+
+    public class GetTokenResponseDTO
+    {
+        public IList<UserIdentity> Identity { get; set; } = new List<UserIdentity>();
+    }
+
     public class HomeController : Controller
     {
         private readonly IWebApiEndpoints _endpoints;
@@ -30,22 +37,35 @@ namespace vehicle.webclient.Controllers
         {
             var url = ConfigurationManager.AppSettings["HostName"];
 
-            string token = string.Empty;
-            using (HttpClient client = new HttpClient())
+            using (var _httpClient = new HttpClient())
             {
-                var httpcontent = new StringContent(username, Encoding.UTF8, "application/x-www-form-urlencoded");
-                var response = client.PostAsync(new Uri(url + "api/token"), httpcontent).Result;
-                token = response.ToString();
+                var userDict = new Dictionary<string, string>
+                        {
+                            {"userName", username },
+                            {"password", password },
+                            {"grant_type", "password" }
+                        };
+                var content = new FormUrlEncodedContent(userDict);
+                var response = _httpClient.PostAsync(url + "token", content).Result;
+                var jsonstring = response.Content.ReadAsStringAsync().Result;
+                var tokenstring = JsonConvert.DeserializeObject<TokenDTO>(jsonstring);
+
+                if (response.IsSuccessStatusCode)
+                    return tokenstring.access_token;
+
+                else
+                    return null;
             }
-            // Mot web api för att hämta token
-            return token;
         }
 
         public ActionResult UserLogIn(string username, string password)
         {
-            string token = GetToken(username, password);
+            Session["token"] = null;
+            string token = null;
+            token = GetToken(username, password);
             if (string.IsNullOrEmpty(token))
-                return View("LogInErrorView");
+                return null;
+                
 
             var ui = new UserIdentity
             {
@@ -56,20 +76,43 @@ namespace vehicle.webclient.Controllers
             var usersLoggedIn = new List<UserIdentity>();
             usersLoggedIn.Add(ui);
             Session["BearerToken"] = usersLoggedIn;
+            Session["token"] = token;
 
             return View("LoginSucces");
         }
 
-        public ActionResult Index()
+        public ActionResult ShowIndex()
         {
+            return View();
+        }
+
+        public ActionResult Index(LogInModel logIn)
+        {
+            if (logIn.Username != null || logIn.Password != null)
+            {
+                string Username = logIn.Username;
+                string Password = logIn.Password;
+                if (UserLogIn(Username, Password) != null)
+                    return RedirectToAction("GetList", "Home");
+                else
+                    return RedirectToAction("Index", "Home");
+            }
+
+
             //Först:
-            //Hämta token
             //Logga in
             //Authenticated = yes / no
             //Roles
             // key value
             //Authorization  bearer xxxxxxxxxx
 
+            //string jsonregistercar = JsonConvert.SerializeObject(vehicleRequest);
+            //var httpcontent = new StringContent(jsonregistercar, Encoding.UTF8, "application/json");
+            //using (HttpClient client = new HttpClient())
+            //{
+            //    var response = client.PostAsync(url + "api/vehicle", httpcontent).Result;
+            //}
+            //UserLogIn();
 
 
             return View();
@@ -78,11 +121,12 @@ namespace vehicle.webclient.Controllers
         public ActionResult ShowCreateVehicle()
         {
             return View();
-
         }
 
         public ActionResult CreateVehicle(CreateVehicleModel vehicle)
         {
+            //var token = Session["BearerToken"].ToString();
+
             var url = ConfigurationManager.AppSettings["HostName"];
 
             if (vehicle.PlateNo != null)
@@ -139,7 +183,11 @@ namespace vehicle.webclient.Controllers
             var vehicles = new List<VehicleListModel>();
             using (HttpClient client = new HttpClient())
             {
-                var response = client.GetAsync(url + "api/getvehicles").Result;
+                //client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", "token");
+                //client.DefaultRequestHeaders.Add("Authorization", Session["Bearer " + "token"].ToString());
+                client.DefaultRequestHeaders.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", Session["token"].ToString());
+
+                var response = client.GetAsync(new Uri(url + "api/getvehicles")).Result;
                 if (response != null)
                 {
                     var jsonString = response.Content.ReadAsStringAsync().Result;
